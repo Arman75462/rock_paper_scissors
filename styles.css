@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+/* =====RESETS===== */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+/*===================GENERAL-STYLING =====================*/
+
+body {
+  background-color: black;
+}
+
+p {
+  color: white;
+  font-size: 2rem;
+}
+
+/* =====================GENERAL-LAYOUT======================== */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 20vh);
+}
+
+/* ***************************SPECIFIC-LAYOUT AND SPECIFIC STYLING*************************** */
+
+/* ======================score-section====================== */
+.score-section {
+  background-color: red;
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* ======================cards-section====================== */
+.cards-section {
+  grid-column: 4 / 6;
+  grid-row: 1 / 3;
+}
+
+h2 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.cards {
+  display: flex;
+  font-size: 4rem;
+  justify-content: space-around;
+  margin-top: 1em;
+}
+
+.card {
+  padding: 0.6em;
+  border-radius: 50%;
+}
+
+.rock-card {
+  background-image: linear-gradient(red, black);
+}
+
+.scissors-card {
+  background-image: linear-gradient(yellow, black);
+}
+
+.paper-card {
+  background-image: linear-gradient(orange, black);
+}
+
+.section {
+  background-color: rgba(255, 192, 203, 0.704);
+}
+/* ======================chosen-cards-section====================== */
+.chosen-cards-section {
+  grid-column: 1 / 3;
+  grid-row: 4 / 6;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ======================result-section====================== */
+.result-section {
+  grid-column: 4 / 6;
+  grid-row: 4 / 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

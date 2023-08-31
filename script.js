@@ -5,11 +5,11 @@ function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
 
   if (randomNumber === 0) {
-    return "rock"; // This is rock
+    return 0; // This is rock
   } else if (randomNumber === 1) {
-    return "paper"; // This is paper
+    return 1; // This is paper
   } else if (randomNumber === 2) {
-    return "scissors"; // This is scissors
+    return 2; // This is scissors
   }
 }
 
@@ -22,35 +22,35 @@ function playRound(playerChoice, computerSelection) {
   playerChoice = playerChoice.toLowerCase(); // added this line to convert input to lowercase
 
   if (playerChoice === "rock") {
-    if (computerSelection === "rock") {
+    if (computerSelection === 0) {
       // Computer chose rock.
       return `You chose ${playerChoice}, computer chose rock too. ${tieMessage}`;
-    } else if (computerSelection === "paper") {
+    } else if (computerSelection === 1) {
       // Computer chose paper
       return `You chose ${playerChoice}, computer chose paper. ${loseMessage}`;
-    } else if (computerSelection === "scissors") {
+    } else if (computerSelection === 2) {
       // Computer chose scissors.
       return `You chose ${playerChoice}, computer chose scissors. ${winMessage}.`;
     }
   } else if (playerChoice === "paper") {
-    if (computerSelection === "rock") {
+    if (computerSelection === 0) {
       // Computer chose rock.
       return `You chose ${playerChoice}, computer chose rock. ${winMessage}.`;
-    } else if (computerSelection === "paper") {
+    } else if (computerSelection === 1) {
       // Computer chose paper
       return `You chose ${playerChoice}, computer chose paper. ${tieMessage}`;
-    } else if (computerSelection === "scissors") {
+    } else if (computerSelection === 2) {
       // Computer chose scissors.
       return `You chose ${playerChoice}, computer chose scissors. ${loseMessage}`;
     }
   } else if (playerChoice === "scissors") {
-    if (computerSelection === "rock") {
+    if (computerSelection === 0) {
       // Computer chose rock.
       return `You chose ${playerChoice}, computer chose rock. ${loseMessage}`;
-    } else if (computerSelection === "paper") {
+    } else if (computerSelection === 1) {
       // Computer chose paper
       return `You chose ${playerChoice}, computer chose paper. ${winMessage}.`;
-    } else if (computerSelection === "scissors") {
+    } else if (computerSelection === 2) {
       // Computer chose scissors.
       return `You chose ${playerChoice}, computer chose scissors too. ${tieMessage}`;
     }
