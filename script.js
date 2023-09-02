@@ -1,18 +1,76 @@
 "use strict";
 
-// Generates a random number that represents the computer's move
+// --------------------- SELECTORS
+const results = document.querySelector(".results");
+const rockButton = document.querySelector(".rock-button");
+const paperButton = document.querySelector(".paper-button");
+const replayButton = document.querySelector(".replay-button");
+const scissorsButton = document.querySelector(".scissors-button");
+const score = document.querySelector(".score");
+const computerScore = document.querySelector(".computer-score");
+const userScore = document.querySelector(".user-score");
+const body = document.querySelector("body");
+
+// Variable to track game state
+let gameActive = true;
+
+// --------------------- Generates a random number that represents the computer's move
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
 
   if (randomNumber === 0) {
-    return 0; // This is rock
+    return "rock"; // This is rock
   } else if (randomNumber === 1) {
-    return 1; // This is paper
+    return "paper"; // This is paper
   } else if (randomNumber === 2) {
-    return 2; // This is scissors
+    return "scissors"; // This is scissors
   }
 }
 
+// ---------------------  BUTTONS FOR ROCK, PAPER, SCISSORS, AND REPLAY
+rockButton.addEventListener("click", function () {
+  if (gameActive) {
+    // Check if the game is still active
+    const playerChoice = "rock";
+    const computerSelection = getComputerChoice();
+    playRound(playerChoice, computerSelection);
+  }
+});
+
+paperButton.addEventListener("click", function () {
+  if (gameActive) {
+    // Check if the game is still active
+    const playerChoice = "paper";
+    const computerSelection = getComputerChoice();
+    playRound(playerChoice, computerSelection);
+  }
+});
+
+scissorsButton.addEventListener("click", function () {
+  if (gameActive) {
+    // Check if the game is still active
+    const playerChoice = "scissors";
+    const computerSelection = getComputerChoice();
+    playRound(playerChoice, computerSelection);
+  }
+});
+
+replayButton.addEventListener("click", function () {
+  body.style.backgroundColor = "white";
+  computerArrayScore.length = 0; // Reset the array
+  userArrayScore.length = 0; // Reset the array
+  userScore.textContent = "0";
+  computerScore.textContent = "0";
+  results.textContent = "";
+
+  // Reset game state and allow buttons to work again
+  gameActive = true;
+});
+
+const computerArrayScore = [];
+const userArrayScore = [];
+
+// --------------------- Function to make the game work
 function playRound(playerChoice, computerSelection) {
   // Messages when round is done
   const winMessage = "YOU WIN MUDDAFUCKER!!!! 💪";
@@ -22,45 +80,71 @@ function playRound(playerChoice, computerSelection) {
   playerChoice = playerChoice.toLowerCase(); // added this line to convert input to lowercase
 
   if (playerChoice === "rock") {
-    if (computerSelection === 0) {
+    if (computerSelection === "rock") {
       // Computer chose rock.
-      return `You chose ${playerChoice}, computer chose rock too. ${tieMessage}`;
-    } else if (computerSelection === 1) {
+      results.textContent = `You chose ${playerChoice}, computer chose rock too. ${tieMessage}`;
+    } else if (computerSelection === "paper") {
       // Computer chose paper
-      return `You chose ${playerChoice}, computer chose paper. ${loseMessage}`;
-    } else if (computerSelection === 2) {
+      results.textContent = `You chose ${playerChoice}, computer chose paper. ${loseMessage}`;
+      computerArrayScore.unshift("computer-point");
+      console.log(computerArrayScore);
+      computerScore.textContent = computerArrayScore.length;
+    } else if (computerSelection === "scissors") {
       // Computer chose scissors.
-      return `You chose ${playerChoice}, computer chose scissors. ${winMessage}.`;
+      results.textContent = `You chose ${playerChoice}, computer chose scissors. ${winMessage}.`;
+      userArrayScore.unshift("user-point");
+      console.log(userArrayScore);
+      userScore.textContent = userArrayScore.length;
     }
   } else if (playerChoice === "paper") {
-    if (computerSelection === 0) {
+    if (computerSelection === "rock") {
       // Computer chose rock.
-      return `You chose ${playerChoice}, computer chose rock. ${winMessage}.`;
-    } else if (computerSelection === 1) {
+      results.textContent = `You chose ${playerChoice}, computer chose rock. ${winMessage}.`;
+      userArrayScore.unshift("user-point");
+      console.log(userArrayScore);
+      userScore.textContent = userArrayScore.length;
+    } else if (computerSelection === "paper") {
       // Computer chose paper
-      return `You chose ${playerChoice}, computer chose paper. ${tieMessage}`;
-    } else if (computerSelection === 2) {
+      results.textContent = `You chose ${playerChoice}, computer chose paper. ${tieMessage}`;
+    } else if (computerSelection === "scissors") {
       // Computer chose scissors.
-      return `You chose ${playerChoice}, computer chose scissors. ${loseMessage}`;
+      results.textContent = `You chose ${playerChoice}, computer chose scissors. ${loseMessage}`;
+      computerArrayScore.unshift("computer-point");
+      console.log(computerArrayScore);
+      computerScore.textContent = computerArrayScore.length;
     }
   } else if (playerChoice === "scissors") {
-    if (computerSelection === 0) {
+    if (computerSelection === "rock") {
       // Computer chose rock.
-      return `You chose ${playerChoice}, computer chose rock. ${loseMessage}`;
-    } else if (computerSelection === 1) {
+      results.textContent = `You chose ${playerChoice}, computer chose rock. ${loseMessage}`;
+      computerArrayScore.unshift("computer-point");
+      console.log(computerArrayScore);
+      computerScore.textContent = computerArrayScore.length;
+    } else if (computerSelection === "paper") {
       // Computer chose paper
-      return `You chose ${playerChoice}, computer chose paper. ${winMessage}.`;
-    } else if (computerSelection === 2) {
+      results.textContent = `You chose ${playerChoice}, computer chose paper. ${winMessage}.`;
+      userArrayScore.unshift("user-point");
+      console.log(userArrayScore);
+      userScore.textContent = userArrayScore.length;
+    } else if (computerSelection === "scissors") {
       // Computer chose scissors.
-      return `You chose ${playerChoice}, computer chose scissors too. ${tieMessage}`;
+      results.textContent = `You chose ${playerChoice}, computer chose scissors too. ${tieMessage}`;
     }
-  } else {
-    console.log("Enter rock-paper or scissors you idiot 🤡");
   }
+
+  // Call the winning condition check after each round
+  checkWinningCondition();
 }
 
-const playerSelection = prompt("Enter either rock, paper or scissors");
-
-const computerSelection = getComputerChoice();
-
-console.log(playRound(playerSelection, computerSelection));
+// -----------------------Winning feature
+function checkWinningCondition() {
+  if (computerArrayScore.length === 5) {
+    results.textContent = "Computer won the game :(";
+    body.style.backgroundColor = "red";
+    gameActive = false;
+  } else if (userArrayScore.length === 5) {
+    results.textContent = "YOU WON THE GAME!!!!";
+    body.style.backgroundColor = "greenyellow";
+    gameActive = false;
+  }
+}
